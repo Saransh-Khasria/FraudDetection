@@ -29,4 +29,60 @@ https://en.wikipedia.org/wiki/Isolation_forest
 > <font color='blue'> *I chose to work on supervised learning algorithms. Looking at the volume of the transactions, it made sense to choose algorithms which will be quicker to train and would be interpretable*
 
 
-3. 
+## 3. Data Wrangling
+
+The data received is almost clean and only basic wrangling steps were needed to make it available for EDA. In this problem, I type casted the data correctly, checked & deleted *(if any)* duplicate data points existed
+
+## 4. Exploratory Data Analysis
+
+> Most number of transactions occur in Transaction Type:'Payment', however most of fraudulent transactions happen in Transaction Type:'Transfer' and the fraudulent amount is exponentially higher to non-fraudlent transations
+
+<img src = "transaction_type.png">
+<img src = "transaction_type_fraud.png">
+<img src = "fraud_amount.png">
+
+
+## 4. Pre-processing
+
+> One hot Encoding: For the transaction types one hot encoding is used
+
+> Feature Extraction: Few functions/methods are created for feature generation/extration
+
+# 5. Machine Learning Approach
+
+- Limiting the number of non fraudulent transactions from the dataset in order to make the extreme class imbalance (1:1000) to an imbalance of lower order.
+- Splitting of data into train,test
+- Logistic Regression with Grid Search
+- RandomForestClassifier with Randomized Search
+
+- Solving for the imbalance in dataset
+    - SMOTE
+        - Using SMOTE for oversampling of the data
+- Testing results using totally unseen data to understand how the model would perform in a production setup
+
+#### Metrics Used:
+- Precision
+- Recall
+- Roc Auc Score
+    
+
+## 6. Model Selection and Results
+
+### Without handling class imbalance
+| Model | Precision | Recall | Precision - Unseen data | Recall - Unseen data |
+| --- | --- | --- | --- | --- |
+| Logistic Regression | .19 | .977 | .07 | .977 | 
+| Random Forest | .45 | .972 | .21 | .983 |
+
+### Applying SMOTE
+| Model | Precision | Recall | Precision - Unseen data | Recall - Unseen data |
+| --- | --- | --- | --- | --- |
+| Logistic Regression | .87 | .985 | .06 | .977 | 
+| Random Forest | .97 | .997 | .24 | .993 | 
+
+<font color='blue'> ***Random forest after applying SMOTE technique performs best amongst all models***
+    
+## 7. Future Improvements
+
+- I would like to change the performance metric to a weighted F1 score with incline towards Recall
+- Explore other algorithms to get a precision score
